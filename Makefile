@@ -6,7 +6,7 @@
 #    By: tedelin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:52:51 by tedelin           #+#    #+#              #
-#    Updated: 2023/01/18 11:01:20 by tedelin          ###   ########.fr        #
+#    Updated: 2023/01/18 16:19:59 by tedelin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ SRCS = parsing.c main_parsing.c
 OBJS = $(SRCS:.c=.o)
 CC = cc
 FLAGS = -Wall -Wextra -Werror
+MLX_FLAGS = -lX11 -lXext
+MLX_PATH = minilibx-linux
 LIBFT_LIB = libft/libft.a
 LIBFT_PATH = libft
 

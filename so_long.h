@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:51:40 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/18 16:08:28 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/18 16:55:43 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	init_data(t_data *data, int fd);
 void	check_line(t_data *data, int j);
 int		check_map(t_data *data);
 void	check_first_last(char *s, t_data *data);
+int		valid_path(t_data *data);
 
 #endif
