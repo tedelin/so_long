@@ -6,7 +6,7 @@
 #    By: tedelin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:52:51 by tedelin           #+#    #+#              #
-#    Updated: 2023/01/18 16:19:59 by tedelin          ###   ########.fr        #
+#    Updated: 2023/01/18 17:15:50 by tedelin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ clean:
 	make -C $(LIBFT_PATH) clean
 	rm -f $(OBJS)
 
-fclean:
+fclean:	clean
 	make -C $(LIBFT_PATH) fclean
 	rm -f $(NAME)
 
