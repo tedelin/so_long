@@ -30,5 +30,7 @@ void	check_line(t_data *data, int j);
 int		check_map(t_data *data);
 void	check_first_last(char *s, t_data *data);
 int		valid_path(t_data *data);
+int		isvalidmove(t_data *data, int x, int y);
+void	ft_dfs(t_data *data, int x, int y);
 
 #endif

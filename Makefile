@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = so_long
-SRCS = parsing.c main_parsing.c
+SRCS = path.c parsing.c main_parsing.c
 OBJS = $(SRCS:.c=.o)
 CC = cc
 FLAGS = -Wall -Wextra -Werror
