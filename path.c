@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:46:30 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/18 17:12:56 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:58:39 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,23 @@ int	isvalidmove(t_data *data, int x, int y)
 
 void	ft_dfs(t_data *data, int x, int y)
 {
-	int	dx[4] = {-1, 0, 1, 0};
-	int	dy[4] = {0, 1, 0, -1};
+	int	dx[4];
+	int	dy[4];
 	int	i;
 
+	dx[0] = -1;
+	dx[1] = 0;
+	dx[2] = 1;
+	dx[3] = 0;
+	dy[0] = 0;
+	dy[1] = 1;
+	dy[2] = 0;
+	dy[3] = -1;
+	if (data->map[x][y] == 'E')
+	{
+		data->map[x][y] = '1';
+		return ;
+	}
 	data->map[x][y] = '#';
 	i = -1;
 	while (++i < 4)
@@ -66,9 +79,4 @@ int	valid_path(t_data *data)
 		}
 	}
 	return (ft_dfs(&cpy, x, y), cpy.c == 0 && cpy.e == 0);
-	/* ft_dfs(&cpy, x, y); */
-	/* int k = 0; */
-	/* while (k < cpy.rows) */
-	/* 	printf("%s\n", cpy.map[k++]); */
-	/* return (1); */
 }

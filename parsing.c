@@ -6,11 +6,12 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:59:41 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/18 16:53:16 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:22:17 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include "minilibx-linux/mlx.h"
 #include "so_long.h"
 #include <stdlib.h>
 
@@ -26,7 +27,7 @@ int	l_len(char *s)
 	return (i);
 }
 
-void	init_data(t_data *data, int fd)
+int	init_data(t_data *data, int fd)
 {
 	char	*lines;
 	char	*new;
@@ -48,7 +49,9 @@ void	init_data(t_data *data, int fd)
 		new = get_next_line(fd);
 	}
 	data->map = ft_split(lines, '\n');
-	free(lines);
+	if (!data->map)
+		return (free(lines), 1);
+	return (free(lines), 0);
 }
 
 void	check_first_last(char *s, t_data *data)
@@ -59,6 +62,13 @@ void	check_first_last(char *s, t_data *data)
 			data->error = 1;
 		s++;
 	}
+}
+
+int	valid_elt(char c)
+{
+	if (c == 'E' || c == 'P' || c == '1' || c == '0' || c == 'C')
+		return (1);
+	return (0);
 }
 
 int	check_map(t_data *data)
@@ -82,7 +92,7 @@ int	check_map(t_data *data)
 				data->c++;
 			else if (data->map[j][0] != '1' || l_len(data->map[j]) != data->col
 				|| data->map[j][l_len(data->map[j]) - 1] != '1'
-				|| (data->map[j][i] != '0' && data->map[j][i] != '1'))
+				|| valid_elt(data->map[j][i]) == 0)
 				data->error = 1;
 		}
 	}
