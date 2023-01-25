@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:56:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:20:37 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 20:42:06 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	move(t_data *data, int x, int y)
 		return (0);
 	if (data->map[x][y] == 'E' && data->c == 0)
 	{
-		mlx_loop_end(data->mlx_ptr);
+		mlx_loop_end(data->mlx);
 		return (1);
 	}
 	if (data->map[x][y] == 'C' || data->map[x][y] == '0')
@@ -51,7 +51,7 @@ int	key_hook(int key, t_data *data)
 		ft_printf("MOVES : %d\n", nb);
 	}
 	if (key == XK_Escape)
-		mlx_loop_end(data->mlx_ptr);
+		mlx_loop_end(data->mlx);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:51:40 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:35:58 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 20:44:23 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ typedef struct s_data
 	int		c;
 	int		error;
 	char	**map;
+	char	**cpy;
 	int		pos_px;
 	int		pos_py;
-	void	*mlx_ptr;
-	void	*win_ptr;
+	void	*mlx;
+	void	*win;
 	void	*img_e;
 	void	*img_p;
 	void	*img_c;

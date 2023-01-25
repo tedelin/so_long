@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:46:30 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:33:09 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 20:49:00 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	isvalidmove(t_data *data, int x, int y)
 {
 	if (x < 0 || y < 0 || x > data->rows - 1 || y > data->col - 1)
 		return (0);
-	if (data->map[x][y] == 'E')
+	if (data->cpy[x][y] == 'E')
 		data->e--;
-	if (data->map[x][y] == 'C')
+	if (data->cpy[x][y] == 'C')
 		data->c--;
-	return (data->map[x][y] == '0' || data->map[x][y] == 'C' || data->map[x][y] == 'E');
+	return (data->cpy[x][y] =! '1');
 }
 
 void	ft_dfs(t_data *data, int x, int y)
@@ -38,12 +38,12 @@ void	ft_dfs(t_data *data, int x, int y)
 	dy[1] = 1;
 	dy[2] = 0;
 	dy[3] = -1;
-	if (data->map[x][y] == 'E')
+	if (data->cpy[x][y] == 'E')
 	{
-		data->map[x][y] = '1';
+		data->cpy[x][y] = '1';
 		return ;
 	}
-	data->map[x][y] = '#';
+	data->cpy[x][y] = '#';
 	i = -1;
 	while (++i < 4)
 	{
@@ -63,13 +63,13 @@ int	valid_path(t_data *data)
 	x = -1;
 	y = -1;
 	i = -1;
-	cpy = *data;
+	ft_memcpy(&cpy, data, sizeof(t_data));
 	while (++i < cpy.rows)
 	{
 		j = -1;
 		while (++j < cpy.col)
 		{
-			if (cpy.map[i][j] == 'P')
+			if (cpy.cpy[i][j] == 'P')
 			{
 				x = i;
 				y = j;

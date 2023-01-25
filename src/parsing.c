@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:59:41 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:32:49 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 20:46:53 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	init_data(t_data *data, int fd)
 		new = get_next_line(fd);
 	}
 	data->map = ft_split(lines, '\n');
-	if (!data->map)
+	data->cpy = ft_split(lines, '\n');
+	if (!data->map || !data->cpy)
 		return (free(lines), 1);
 	return (free(lines), 0);
 }

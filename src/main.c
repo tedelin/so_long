@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:57:12 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:20:38 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 20:52:52 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,26 @@ void	free_final(t_data *data)
 
 	i = 0;
 	while (data->map[i])
-		free(data->map[i++]);
+	{
+		free(data->map[i]);
+		free(data->cpy[i]);
+		i++;
+	}
 	if (data->img_e)
-		mlx_destroy_image(data->mlx_ptr, data->img_e);
+		mlx_destroy_image(data->mlx, data->img_e);
 	if (data->img_p)
-		mlx_destroy_image(data->mlx_ptr, data->img_p);
+		mlx_destroy_image(data->mlx, data->img_p);
 	if (data->img_c)
-		mlx_destroy_image(data->mlx_ptr, data->img_c);
+		mlx_destroy_image(data->mlx, data->img_c);
 	if (data->img_w)
-		mlx_destroy_image(data->mlx_ptr, data->img_w);
+		mlx_destroy_image(data->mlx, data->img_w);
 	if (data->img_f)
-		mlx_destroy_image(data->mlx_ptr, data->img_f);
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
+		mlx_destroy_image(data->mlx, data->img_f);
+	mlx_clear_window(data->mlx, data->win);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
 	free(data->map);
-	free(data->mlx_ptr);
+	free(data->mlx);
 }
 
 int	main(int ac, char **av, char **env)
@@ -53,19 +57,20 @@ int	main(int ac, char **av, char **env)
 	if (fd == -1 || init_data(&data, fd))
 		return (1);
 	close(fd);
-	if (!check_map(&data))
-	 	return (1);
-	data.mlx_ptr = mlx_init();
-	if (!data.mlx_ptr)
+	if (!check_map(&data) || !valid_path(&data))
 		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, data.col * 64, data.rows * 64, "so_long");
-	if (!data.win_ptr)
-		return (free(data.win_ptr), 1);
+	data.mlx = mlx_init();
+	if (!data.mlx)
+		return (1);
+	data.win = mlx_new_window(data.mlx, data.col * 64, \
+	data.rows * 64, "so_long");
+	if (!data.win)
+		return (free(data.win), 1);
 	if (init_sprites(&data))
 		return (free_final(&data), 1);
 	gen_map(&data);
-	mlx_key_hook(data.win_ptr, key_hook, &data);
-	mlx_hook(data.win_ptr, 17, 1L << 17, mlx_loop_end, data.mlx_ptr);
-	mlx_loop(data.mlx_ptr);
+	mlx_key_hook(data.win, key_hook, &data);
+	mlx_hook(data.win, 17, 1L << 17, mlx_loop_end, data.mlx);
+	mlx_loop(data.mlx);
 	free_final(&data);
 }
