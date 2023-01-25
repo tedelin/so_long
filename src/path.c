@@ -6,12 +6,13 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:46:30 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:49:00 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 21:36:03 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "../libft/libft.h"
+#include <stdio.h>
 
 int	isvalidmove(t_data *data, int x, int y)
 {
@@ -21,7 +22,8 @@ int	isvalidmove(t_data *data, int x, int y)
 		data->e--;
 	if (data->cpy[x][y] == 'C')
 		data->c--;
-	return (data->cpy[x][y] =! '1');
+	return (data->cpy[x][y] == '0' || data->cpy[x][y] == 'C'
+		|| data->cpy[x][y] == 'E');
 }
 
 void	ft_dfs(t_data *data, int x, int y)
@@ -69,7 +71,7 @@ int	valid_path(t_data *data)
 		j = -1;
 		while (++j < cpy.col)
 		{
-			if (cpy.cpy[i][j] == 'P')
+			if (cpy.map[i][j] == 'P')
 			{
 				x = i;
 				y = j;

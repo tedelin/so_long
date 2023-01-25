@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:57:12 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:52:52 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 21:41:36 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <X11/keysym.h>
 #include "../minilibx-linux/mlx.h"
 
-void	free_final(t_data *data)
+int	free_final(t_data *data)
 {
 	int	i;
 
@@ -26,8 +26,7 @@ void	free_final(t_data *data)
 	while (data->map[i])
 	{
 		free(data->map[i]);
-		free(data->cpy[i]);
-		i++;
+		free(data->cpy[i++]);
 	}
 	if (data->img_e)
 		mlx_destroy_image(data->mlx, data->img_e);
@@ -39,11 +38,13 @@ void	free_final(t_data *data)
 		mlx_destroy_image(data->mlx, data->img_w);
 	if (data->img_f)
 		mlx_destroy_image(data->mlx, data->img_f);
-	mlx_clear_window(data->mlx, data->win);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->map);
-	free(data->mlx);
+	if (data->win)
+	{
+		mlx_clear_window(data->mlx, data->win);
+		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_display(data->mlx);
+	}
+	return (free(data->map), free(data->cpy), free(data->mlx), 0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -58,7 +59,7 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	close(fd);
 	if (!check_map(&data) || !valid_path(&data))
-		return (1);
+		return (free_final(&data), 1);
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		return (1);
