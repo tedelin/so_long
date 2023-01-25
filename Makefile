@@ -6,12 +6,12 @@
 #    By: tedelin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:52:51 by tedelin           #+#    #+#              #
-#    Updated: 2023/01/24 17:14:00 by tedelin          ###   ########.fr        #
+#    Updated: 2023/01/25 16:53:39 by tedelin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-SRCS = path.c parsing.c main.c hook.c
+SRCS = path.c parsing.c map.c moves.c main.c 
 OBJS = $(SRCS:.c=.o)
 CC = cc
 FLAGS = -Wall

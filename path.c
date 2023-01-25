@@ -6,13 +6,14 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:46:30 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/24 16:58:39 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 17:41:42 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft/libft.h"
 #include <stdio.h>
+#include <string.h>
 
 int	isvalidmove(t_data *data, int x, int y)
 {
@@ -64,7 +65,8 @@ int	valid_path(t_data *data)
 	x = -1;
 	y = -1;
 	i = -1;
-	cpy = *data;
+	memcpy(&cpy, data, sizeof(t_data));
+	cpy.map = data->map;
 	while (++i < cpy.rows)
 	{
 		j = -1;

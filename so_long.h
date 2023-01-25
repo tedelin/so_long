@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:51:40 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/24 17:55:09 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:55:43 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_data
 	int		c;
 	int		error;
 	char	**map;
+	int		pos_px;
+	int		pos_py;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_e;
@@ -49,5 +51,11 @@ int		valid_path(t_data *data);
 int		isvalidmove(t_data *data, int x, int y);
 void	ft_dfs(t_data *data, int x, int y);
 int		key_hook(int key, t_data *data);
+int		pos_x(t_data *data);
+int		move(t_data *data, int x, int y);
+int		pos_y(t_data *data);
+int		init_sprites(t_data *data);
+void	ft_put_sprites(t_data *data, char c, int x, int y);
+void	gen_map(t_data *data);
 
 #endif
