@@ -30,17 +30,16 @@ int	init_data(t_data *data, int fd)
 	char	*lines;
 	char	*new;
 
-	lines = get_next_line(fd);
+	lines = NULL;
 	new = get_next_line(fd);
-	if ((lines && new) || (lines && !new))
-		data->rows++;
-	data->col = l_len(lines);
-	while (lines && new)
+	data->col = l_len(new);
+	while (new)
 	{
 		data->rows++;
 		lines = ft_strjoingnl(lines, new);
 		new = get_next_line(fd);
 	}
+	ft_printf("LINES : %s\n", lines);
 	data->map = ft_split(lines, '\n');
 	data->cpy = ft_split(lines, '\n');
 	if (!data->map || !data->cpy)
