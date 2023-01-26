@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:59:41 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 21:21:26 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:28:04 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,8 @@ int	init_data(t_data *data, int fd)
 	char	*lines;
 	char	*new;
 
-	data->e = 0;
-	data->p = 0;
-	data->c = 0;
-	data->error = 0;
 	lines = get_next_line(fd);
 	new = get_next_line(fd);
-	data->rows = 0;
 	if ((lines && new) || (lines && !new))
 		data->rows++;
 	data->col = l_len(lines);
