@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:51:40 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:44:23 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/26 18:52:17 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,9 @@ int		pos_y(t_data *data);
 int		init_sprites(t_data *data);
 void	ft_put_sprites(t_data *data, char c, int x, int y);
 void	gen_map(t_data *data);
+
+// Utils
+int		free_final(t_data *data);
+void	struc_init(t_data *data);
 
 #endif
