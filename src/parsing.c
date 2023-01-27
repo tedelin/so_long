@@ -39,11 +39,12 @@ int	init_data(t_data *data, int fd)
 		lines = ft_strjoingnl(lines, new);
 		new = get_next_line(fd);
 	}
-	ft_printf("LINES : %s\n", lines);
 	data->map = ft_split(lines, '\n');
-	data->cpy = ft_split(lines, '\n');
-	if (!data->map || !data->cpy)
+	if (!data->map)
 		return (free(lines), 1);
+	data->cpy = ft_split(lines, '\n');
+	if (!data->cpy)
+		return (free(lines), free_final(data), 1);
 	return (free(lines), 0);
 }
 

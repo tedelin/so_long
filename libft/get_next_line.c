@@ -93,8 +93,6 @@ char	*get_next_line(int fd)
 	char		*buff;
 	int			b_read;
 
-	if (fd == -1)
-		return (NULL);
 	line = ft_checkstash(&stash);
 	if (line)
 		return (line);

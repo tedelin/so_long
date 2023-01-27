@@ -23,11 +23,11 @@ int	free_final(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->map[i])
-	{
-		free(data->map[i]);
+	while (data->map && data->map[i])
+		free(data->map[i++]);
+	i = 0;
+	while (data->cpy && data->cpy[i])
 		free(data->cpy[i++]);
-	}
 	if (data->img_e)
 		mlx_destroy_image(data->mlx, data->img_e);
 	if (data->img_p)
