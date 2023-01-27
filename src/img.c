@@ -6,12 +6,12 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:27:52 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:43:14 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:10:57 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "../minilibx-linux/mlx.h"
+#include "mlx.h"
 
 int	init_sprites(t_data *data)
 {

@@ -6,11 +6,11 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:59:41 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/26 15:28:04 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:11:37 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include "so_long.h"
 
 int	l_len(char *s)
@@ -44,7 +44,7 @@ int	init_data(t_data *data, int fd)
 		return (free(lines), 1);
 	data->cpy = ft_split(lines, '\n');
 	if (!data->cpy)
-		return (free(lines), free_final(data), 1);
+		return (free(lines), ft_free(data), 1);
 	return (free(lines), 0);
 }
 

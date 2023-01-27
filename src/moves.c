@@ -6,14 +6,14 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:56:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 20:42:06 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:11:31 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <X11/keysym.h>
-#include "../minilibx-linux/mlx.h"
-#include "../libft/libft.h"
+#include "mlx.h"
+#include "libft.h"
 
 int	move(t_data *data, int x, int y)
 {

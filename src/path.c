@@ -6,12 +6,12 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:46:30 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/25 21:36:03 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:11:41 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "../libft/libft.h"
+#include "libft.h"
 #include <stdio.h>
 
 int	isvalidmove(t_data *data, int x, int y)

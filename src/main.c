@@ -6,19 +6,19 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:57:12 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/26 18:49:43 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:11:22 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "../libft/libft.h"
+#include "libft.h"
 #include <stdlib.h>
 #include <fcntl.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
-#include "../minilibx-linux/mlx.h"
+#include "mlx.h"
+#include <errno.h>
+#include <stdio.h>
 
-int	free_final(t_data *data)
+int	ft_free(t_data *data)
 {
 	int	i;
 
@@ -74,24 +74,25 @@ int	main(int ac, char **av, char **env)
 	int		fd;
 
 	struc_init(&data);
-	if (!env || ac != 2)
-		return (1);
 	fd = open(av[1], O_RDONLY);
-	if (fd == -1 || init_data(&data, fd))
-		return (1);
-	close(fd);
+	if (!*env || fd == -1)
+		return (perror("Error\n"), 1);
+	if (ac != 2)
+		return (close(fd), ft_printf("Error\nExpected 1 argument"), 1);
+	if (init_data(&data, fd))
+		return (close(fd), ft_printf("Error\nMemory allocation error"), 1);
 	if (!check_map(&data) || !valid_path(&data))
-		return (free_final(&data), 1);
+		return (close(fd), ft_free(&data), ft_printf("Error\nInvalid Map"), 1);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-		return (free_final(&data), 1);
+		return (ft_free(&data), 1);
 	data.win = mlx_new_window(data.mlx, data.col * 64, \
 	data.rows * 64, "so_long");
 	if (!data.win || init_sprites(&data))
-		return (free_final(&data), 1);
+		return (close(fd), ft_free(&data), 1);
 	gen_map(&data);
 	mlx_key_hook(data.win, key_hook, &data);
 	mlx_hook(data.win, 17, 1L << 17, mlx_loop_end, data.mlx);
 	mlx_loop(data.mlx);
-	free_final(&data);
+	return (close(fd), ft_free(&data), 0);
 }
