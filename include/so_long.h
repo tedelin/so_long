@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:51:40 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/27 16:50:50 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/27 22:05:24 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ void	gen_map(t_data *data);
 // Utils
 int		ft_free(t_data *data);
 void	struc_init(t_data *data);
+char	*ft_error(t_data *data, int ac, char **av);
+char	*ft_strrev(char *s);
 
 #endif
