@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:59:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/28 17:37:57 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/28 18:45:46 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,35 +70,15 @@ void	struc_init(t_data *data)
 	data->img_f = NULL;
 }
 
-char	*ft_strrev(char *s)
-{
-	size_t	i;
-	size_t	j;
-	char	tmp;
-
-	i = ft_strlen(s) - 1;
-	j = 0;
-	while (i >= ft_strlen(s) / 2)
-	{
-		tmp = s[i];
-		s[i] = s[j];
-		s[j] = tmp;
-		i--;
-		j++;
-	}
-	return (s);
-}
-
-char	*ft_error(t_data *data, const char *av)
+char	*ft_error(t_data *data, char *av)
 {
 	char	*error;
 	int		valid;
 	int		fd;
 
 	error = NULL;
-	if (ft_strncmp("reb.", ft_strrev((char *)av), 4) != 0)
+	if (ft_strlen(ft_strnstr(av, ".ber", ft_strlen(av))) != 4)
 		return ("Error\nInvalid file extension : expected .ber file");
-	ft_strrev((char *)av);
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		return ("Error\nNo such file or directory");
