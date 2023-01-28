@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:56:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/27 17:11:31 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:12:49 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ int	key_hook(int key, t_data *data)
 		number = ft_itoa(nb);
 		if (!number)
 			return (1);
-		mlx_string_put(data->mlx, data->win, 10, 40, 0xFFFFFF, number);
+		mlx_string_put(data->mlx, data->win, 25, 35, 0xFFFFFF, number);
 		ft_printf("MOVES : %d\n", nb);
+		free(number);
 	}
 	if (key == XK_Escape)
 		mlx_loop_end(data->mlx);

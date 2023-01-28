@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:59:41 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/27 22:19:16 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:42:43 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int	init_data(t_data *data, int fd)
 	while (data->map && data->map[i])
 		i++;
 	if (i != data->rows)
-		return (free(lines), ft_free(data), 1);
+		return (free(lines), 1);
 	data->cpy = ft_split(lines, '\n');
 	if (!data->cpy)
-		return (free(lines), ft_free(data), 1);
+		return (free(lines), 1);
 	return (free(lines), 0);
 }
 

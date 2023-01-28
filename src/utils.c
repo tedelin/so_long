@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:59:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/27 22:34:03 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:41:56 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <fcntl.h>
 #include <stddef.h>
 #include <stdlib.h>
-
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
@@ -79,7 +78,7 @@ char	*ft_strrev(char *s)
 
 	i = ft_strlen(s) - 1;
 	j = 0;
-	while (i > ft_strlen(s) / 2)
+	while (i >= ft_strlen(s) / 2)
 	{
 		tmp = s[i];
 		s[i] = s[j];
@@ -90,21 +89,19 @@ char	*ft_strrev(char *s)
 	return (s);
 }
 
-char	*ft_error(t_data *data, int ac, char **av)
+char	*ft_error(t_data *data, const char *av)
 {
 	char	*error;
 	int		valid;
 	int		fd;
 
 	error = NULL;
-	if (ac != 2)
-		return ("Error\nExpected 1 argument");
-	if (ft_strncmp("reb.", ft_strrev(av[1]), 4) != 0)
+	if (ft_strncmp("reb.", ft_strrev((char *)av), 4) != 0)
 		return ("Error\nInvalid file extension : expected .ber file");
-	ft_strrev(av[1]);
-	fd = open(av[1], O_RDONLY);
+	ft_strrev((char *)av);
+	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return (close(fd), strerror(errno));
+		return ("Error\nNo such file or directory");
 	else if (init_data(data, fd))
 		return (close(fd), "Error\nInitialization failed (malloc failed)");
 	valid = check_map(data);
@@ -114,6 +111,8 @@ char	*ft_error(t_data *data, int ac, char **av)
 		return (close(fd), "Error\nIncorrect number of exit expected : 1");
 	else if (!valid && (data->p == 0 || data->p > 1))
 		return (close(fd), "Error\nIncorrect number of player expected : 1");
+	else if (!valid)
+		return (close(fd), "Error\nThe map is not surrounded by walls");
 	if (!valid_path(data))
 		return (close(fd), "Error\nNo valid acess path");
 	return (close(fd), error);
