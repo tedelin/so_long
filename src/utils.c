@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:59:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/28 16:41:56 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/28 17:37:57 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,16 @@ char	*ft_error(t_data *data, const char *av)
 	if (fd == -1)
 		return ("Error\nNo such file or directory");
 	else if (init_data(data, fd))
-		return (close(fd), "Error\nInitialization failed (malloc failed)");
+		return (close(fd), "Error\nInvalid map : empty line in file");
 	valid = check_map(data);
 	if (!valid && data->c == 0)
-		return (close(fd), "Error\nIncorrect number of collectibles (C >= 1)");
+		return (close(fd), "Error\nNo collectibles");
 	else if (!valid && (data->e == 0 || data->e > 1))
 		return (close(fd), "Error\nIncorrect number of exit expected : 1");
 	else if (!valid && (data->p == 0 || data->p > 1))
 		return (close(fd), "Error\nIncorrect number of player expected : 1");
 	else if (!valid)
-		return (close(fd), "Error\nThe map is not surrounded by walls");
+		return (close(fd), "Error\nInvalid map");
 	if (!valid_path(data))
 		return (close(fd), "Error\nNo valid acess path");
 	return (close(fd), error);

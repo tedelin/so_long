@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:57:12 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/28 16:29:55 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/28 17:34:54 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	main(int ac, char **av, char **env)
 
 	if (ac != 2)
 		return (ft_printf("Error\nExpected 1 argument"), 1);
-	struc_init(&data);
 	if (!*env)
 		return (ft_printf("%s", "Error\nEnv invalid"));
+	struc_init(&data);
 	error = ft_error(&data, av[1]);
 	if (error)
 		return (ft_free(&data), ft_printf("%s", error), 1);
