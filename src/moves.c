@@ -39,6 +39,7 @@ int	move(t_data *data, int x, int y)
 int	key_hook(int key, t_data *data)
 {
 	static int	nb = 0;
+	char		*number;
 
 	data->pos_px = pos_x(data);
 	data->pos_py = pos_y(data);
@@ -48,6 +49,10 @@ int	key_hook(int key, t_data *data)
 		|| (key == XK_d && move(data, data->pos_px, data->pos_py + 1)))
 	{
 		nb++;
+		number = ft_itoa(nb);
+		if (!number)
+			return (1);
+		mlx_string_put(data->mlx, data->win, 10, 40, 0xFFFFFF, number);
 		ft_printf("MOVES : %d\n", nb);
 	}
 	if (key == XK_Escape)
