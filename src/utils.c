@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:59:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/28 18:45:46 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/30 19:34:49 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,51 +49,31 @@ int	ft_free(t_data *data)
 	return (free(data->map), free(data->cpy), free(data->mlx), 0);
 }
 
-void	struc_init(t_data *data)
+char	*ft_error(t_data *data, int ac, char *av, char **env)
 {
-	data->rows = 0;
-	data->col = 0;
-	data->e = 0;
-	data->p = 0;
-	data->c = 0;
-	data->error = 0;
-	data->map = NULL;
-	data->cpy = NULL;
-	data->pos_px = 0;
-	data->pos_py = 0;
-	data->mlx = NULL;
-	data->win = NULL;
-	data->img_e = NULL;
-	data->img_p = NULL;
-	data->img_c = NULL;
-	data->img_w = NULL;
-	data->img_f = NULL;
-}
-
-char	*ft_error(t_data *data, char *av)
-{
-	char	*error;
-	int		valid;
 	int		fd;
 
-	error = NULL;
+	if (ac != 2)
+		return ("Error\nExpected 1 argument");
+	if (!*env)
+		return ("Error\nEnv invalid");
 	if (ft_strlen(ft_strnstr(av, ".ber", ft_strlen(av))) != 4)
 		return ("Error\nInvalid file extension : expected .ber file");
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return ("Error\nNo such file or directory");
-	else if (init_data(data, fd))
-		return (close(fd), "Error\nInvalid map : empty line in file");
-	valid = check_map(data);
-	if (!valid && data->c == 0)
-		return (close(fd), "Error\nNo collectibles");
-	else if (!valid && (data->e == 0 || data->e > 1))
-		return (close(fd), "Error\nIncorrect number of exit expected : 1");
-	else if (!valid && (data->p == 0 || data->p > 1))
-		return (close(fd), "Error\nIncorrect number of player expected : 1");
-	else if (!valid)
-		return (close(fd), "Error\nInvalid map");
-	if (!valid_path(data))
-		return (close(fd), "Error\nNo valid acess path");
-	return (close(fd), error);
+		return (ft_printf("Error\n"), strerror(errno));
+	init_data(data, fd);
+	close(fd);
+	if (!check_map(data))
+	{
+		if (data->c == 0)
+			return ("Error\nNo collectibles");
+		if (data->e == 0 || data->e > 1)
+			return ("Error\nIncorrect number of exit expected : 1");
+		if (data->p == 0 || data->p > 1)
+			return ("Error\nIncorrect number of player expected : 1");
+		return ("Error\nInvalid map");
+	}
+	valid_path(data);
+	return (NULL);
 }

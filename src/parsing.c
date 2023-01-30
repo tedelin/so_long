@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:59:41 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/28 17:37:36 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/30 19:31:39 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	l_len(char *s)
 	return (i);
 }
 
-int	init_data(t_data *data, int fd)
+void	init_data(t_data *data, int fd)
 {
 	char	*lines;
 	char	*new;
@@ -33,6 +33,7 @@ int	init_data(t_data *data, int fd)
 
 	lines = NULL;
 	new = get_next_line(fd);
+	i = 0;
 	data->col = l_len(new);
 	while (new)
 	{
@@ -41,17 +42,16 @@ int	init_data(t_data *data, int fd)
 		new = get_next_line(fd);
 	}
 	data->map = ft_split(lines, '\n');
-	if (!data->map)
-		return (free(lines), 1);
-	i = 0;
+	data->cpy = ft_split(lines, '\n');
+	free(lines);
 	while (data->map && data->map[i])
 		i++;
+	if (!data->cpy || !data->map)
+		ft_printf("Error\nAllocation  failed");
 	if (i != data->rows)
-		return (free(lines), 2);
-	data->cpy = ft_split(lines, '\n');
-	if (!data->cpy)
-		return (free(lines), 1);
-	return (free(lines), 0);
+		ft_printf("Error\nEmpty line in file");
+	if ((!data->cpy || !data->map) || i != data->rows)
+		exit(ft_free(data));
 }
 
 void	check_first_last(char *s, t_data *data)

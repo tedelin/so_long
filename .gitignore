@@ -1,5 +1,7 @@
 .vscode/
+testing/
 main_parsing.c
 ft_mallocator/
 utils/
 old/
+invalid/

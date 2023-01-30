@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:51:40 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/28 18:53:02 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/30 19:35:14 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ typedef struct s_data
 
 // Parsing
 int		l_len(char *s);
-int		init_data(t_data *data, int fd);
+void	init_data(t_data *data, int fd);
 void	check_first_last(char *s, t_data *data);
 int		valid_elt(char c);
 int		check_map(t_data *data);
 
 // Valid Path
-int		isvalidmove(t_data *data, int x, int y);
+int		is_valid_move(t_data *data, int x, int y);
 void	ft_dfs(t_data *data, int x, int y);
-int		valid_path(t_data *data);
+void	valid_path(t_data *data);
 
 // Moves handling
 int		move(t_data *data, int x, int y);
@@ -60,6 +60,6 @@ void	gen_map(t_data *data);
 // Utils
 int		ft_free(t_data *data);
 void	struc_init(t_data *data);
-char	*ft_error(t_data *data, char *av);
+char	*ft_error(t_data *data, int ac, char *av, char **env);
 
 #endif

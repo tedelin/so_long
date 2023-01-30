@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:27:52 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/27 17:10:57 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/30 18:16:16 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	init_sprites(t_data *data)
 	if (!data->img_p || !data->img_c || !data->img_w || !data->img_f
 		|| !data->img_e)
 		return (1);
+	gen_map(data);
 	return (0);
 }
 

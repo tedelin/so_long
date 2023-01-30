@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:46:30 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/27 17:11:41 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/01/30 19:12:46 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-int	isvalidmove(t_data *data, int x, int y)
+int	is_valid_move(t_data *data, int x, int y)
 {
 	if (x < 0 || y < 0 || x > data->rows - 1 || y > data->col - 1)
 		return (0);
@@ -49,35 +49,34 @@ void	ft_dfs(t_data *data, int x, int y)
 	i = -1;
 	while (++i < 4)
 	{
-		if (isvalidmove(data, x + dx[i], y + dy[i]))
+		if (is_valid_move(data, x + dx[i], y + dy[i]))
 			ft_dfs(data, x + dx[i], y + dy[i]);
 	}
 }
 
-int	valid_path(t_data *data)
+void	valid_path(t_data *data)
 {
 	t_data	cpy;
 	int		x;
 	int		y;
-	int		i;
-	int		j;
 
 	x = -1;
-	y = -1;
-	i = -1;
 	ft_memcpy(&cpy, data, sizeof(t_data));
-	while (++i < cpy.rows)
+	while (++x < cpy.rows)
 	{
-		j = -1;
-		while (++j < cpy.col)
+		y = -1;
+		while (++y < cpy.col)
 		{
-			if (cpy.map[i][j] == 'P')
+			if (cpy.map[x][y] == 'P')
 			{
-				x = i;
-				y = j;
+				ft_dfs(&cpy, x, y);
 				break ;
 			}
 		}
 	}
-	return (ft_dfs(&cpy, x, y), cpy.c == 0 && cpy.e == 0);
+	if (cpy.c != 0 || cpy.e != 0)
+	{
+		ft_printf("Error\nNo valid access path");
+		exit(ft_free(data));
+	}
 }
