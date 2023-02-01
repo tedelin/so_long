@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:56:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/28 16:12:49 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:52:49 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,21 @@ int	move(t_data *data, int x, int y)
 
 int	key_hook(int key, t_data *data)
 {
-	static int	nb = 0;
 	char		*number;
 
-	data->pos_px = pos_x(data);
-	data->pos_py = pos_y(data);
+	data->pos_px = player_pos(data, 'x');
+	data->pos_py = player_pos(data, 'y');
 	if ((key == XK_w && move(data, data->pos_px - 1, data->pos_py))
 		|| (key == XK_a && move(data, data->pos_px, data->pos_py - 1))
 		|| (key == XK_s && move(data, data->pos_px + 1, data->pos_py))
 		|| (key == XK_d && move(data, data->pos_px, data->pos_py + 1)))
 	{
-		nb++;
-		number = ft_itoa(nb);
+		data->moves++;
+		ft_printf("MOVES : %d\n", data->moves);
+		number = ft_itoa(data->moves);
 		if (!number)
 			return (1);
 		mlx_string_put(data->mlx, data->win, 25, 35, 0xFFFFFF, number);
-		ft_printf("MOVES : %d\n", nb);
 		free(number);
 	}
 	if (key == XK_Escape)
@@ -61,7 +60,7 @@ int	key_hook(int key, t_data *data)
 	return (0);
 }
 
-int	pos_x(t_data *data)
+int	player_pos(t_data *data, char pos)
 {
 	int	x;
 	int	y;
@@ -73,25 +72,12 @@ int	pos_x(t_data *data)
 		while (++y < data->col)
 		{
 			if (data->map[x][y] == 'P')
-				return (x);
-		}
-	}
-	return (-1);
-}
-
-int	pos_y(t_data *data)
-{
-	int	x;
-	int	y;
-
-	x = -1;
-	while (++x < data->rows)
-	{
-		y = -1;
-		while (++y < data->col)
-		{
-			if (data->map[x][y] == 'P')
-				return (y);
+			{
+				if (pos == 'x')
+					return (x);
+				else if (pos == 'y')
+					return (y);
+			}
 		}
 	}
 	return (-1);

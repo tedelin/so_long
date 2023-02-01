@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:59:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/30 19:34:49 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:47:14 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
+
+int	l_len(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] && s[i] != '\n')
+		i++;
+	return (i);
+}
 
 int	ft_free(t_data *data)
 {
@@ -62,8 +74,8 @@ char	*ft_error(t_data *data, int ac, char *av, char **env)
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf("Error\n"), strerror(errno));
-	init_data(data, fd);
-	close(fd);
+	if (init_map(data, fd))
+		exit(1);
 	if (!check_map(data))
 	{
 		if (data->c == 0)

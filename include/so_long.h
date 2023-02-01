@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:51:40 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/30 19:35:14 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:53:42 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ typedef struct s_data
 {
 	int		rows;
 	int		col;
+	int		pos_px;
+	int		pos_py;
 	int		e;
 	int		p;
 	int		c;
 	int		error;
+	int		moves;
 	char	**map;
 	char	**cpy;
-	int		pos_px;
-	int		pos_py;
 	void	*mlx;
 	void	*win;
 	void	*img_e;
@@ -36,7 +37,7 @@ typedef struct s_data
 
 // Parsing
 int		l_len(char *s);
-void	init_data(t_data *data, int fd);
+int		init_map(t_data *data, int fd);
 void	check_first_last(char *s, t_data *data);
 int		valid_elt(char c);
 int		check_map(t_data *data);
@@ -49,8 +50,7 @@ void	valid_path(t_data *data);
 // Moves handling
 int		move(t_data *data, int x, int y);
 int		key_hook(int key, t_data *data);
-int		pos_x(t_data *data);
-int		pos_y(t_data *data);
+int		player_pos(t_data *data, char pos);
 
 // Image handling
 int		init_sprites(t_data *data);

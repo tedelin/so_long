@@ -6,26 +6,16 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:59:41 by tedelin           #+#    #+#             */
-/*   Updated: 2023/01/30 19:31:39 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:48:00 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "so_long.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-int	l_len(char *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i] && s[i] != '\n')
-		i++;
-	return (i);
-}
-
-void	init_data(t_data *data, int fd)
+int	init_map(t_data *data, int fd)
 {
 	char	*lines;
 	char	*new;
@@ -41,17 +31,17 @@ void	init_data(t_data *data, int fd)
 		lines = ft_strjoingnl(lines, new);
 		new = get_next_line(fd);
 	}
+	close(fd);
 	data->map = ft_split(lines, '\n');
 	data->cpy = ft_split(lines, '\n');
 	free(lines);
 	while (data->map && data->map[i])
 		i++;
 	if (!data->cpy || !data->map)
-		ft_printf("Error\nAllocation  failed");
+		return (ft_printf("Error\nAllocation  failed"), ft_free(data), 1);
 	if (i != data->rows)
-		ft_printf("Error\nEmpty line in file");
-	if ((!data->cpy || !data->map) || i != data->rows)
-		exit(ft_free(data));
+		return (ft_printf("Error\nEmpty line in file"), ft_free(data), 1);
+	return (0);
 }
 
 void	check_first_last(char *s, t_data *data)
