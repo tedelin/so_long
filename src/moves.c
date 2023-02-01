@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:56:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/02/01 14:52:49 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:06:17 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,24 @@
 int	move(t_data *data, int x, int y)
 {
 	if (x > data->rows - 1 || y > data->col - 1 || y < 0 || x < 0)
+	{
 		return (0);
+	}
 	if (data->map[x][y] == 'E' && data->c == 0)
 	{
 		mlx_loop_end(data->mlx);
 		return (1);
 	}
+	if (data->map[x][y] == 'C')
+	{
+		data->c--;
+	}
 	if (data->map[x][y] == 'C' || data->map[x][y] == '0')
 	{
-		if (data->map[x][y] == 'C')
-			data->c--;
 		data->map[data->pos_px][data->pos_py] = '0';
 		data->map[x][y] = 'P';
+		data->pos_px = x;
+		data->pos_py = y;
 		gen_map(data);
 		return (1);
 	}
@@ -40,8 +46,6 @@ int	key_hook(int key, t_data *data)
 {
 	char		*number;
 
-	data->pos_px = player_pos(data, 'x');
-	data->pos_py = player_pos(data, 'y');
 	if ((key == XK_w && move(data, data->pos_px - 1, data->pos_py))
 		|| (key == XK_a && move(data, data->pos_px, data->pos_py - 1))
 		|| (key == XK_s && move(data, data->pos_px + 1, data->pos_py))
@@ -56,7 +60,9 @@ int	key_hook(int key, t_data *data)
 		free(number);
 	}
 	if (key == XK_Escape)
+	{
 		mlx_loop_end(data->mlx);
+	}
 	return (0);
 }
 

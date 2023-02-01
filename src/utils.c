@@ -6,7 +6,7 @@
 /*   By: tedelin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:59:21 by tedelin           #+#    #+#             */
-/*   Updated: 2023/02/01 14:47:14 by tedelin          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:10:36 by tedelin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,23 @@ int	l_len(char *s)
 	while (s[i] && s[i] != '\n')
 		i++;
 	return (i);
+}
+
+void	check_first_last(char *s, t_data *data)
+{
+	while (s && *s)
+	{
+		if (*s != '1')
+			data->error = 1;
+		s++;
+	}
+}
+
+int	valid_elt(char c)
+{
+	if (c == 'E' || c == 'P' || c == '1' || c == '0' || c == 'C')
+		return (1);
+	return (0);
 }
 
 int	ft_free(t_data *data)
