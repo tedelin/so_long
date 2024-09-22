@@ -6,7 +6,7 @@
 #    By: tedelin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:52:51 by tedelin           #+#    #+#              #
-#    Updated: 2023/01/30 19:48:41 by tedelin          ###   ########.fr        #
+#    Updated: 2023/02/24 17:59:44 by tedelin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(LIBFT_LIB):
 	make -C $(LIBFT_PATH)
 
 $(NAME): $(OBJ) $(LIBFT_LIB) $(MLX_LIB)
-	$(CC) $(CFLAGS) $(INCLUDE) $(MLX_FLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ $^ $(MLX_FLAGS)
 
 obj/%.o: src/%.c
 	mkdir -p $(dir $@)
